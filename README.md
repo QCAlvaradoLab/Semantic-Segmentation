@@ -1,3 +1,5 @@
+# For pre-trained model, use separate model.py and corresponding downloaded pre-trained model!
+
 Setup instructions in Linux
 
 Install necessary libraries.
