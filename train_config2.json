@@ -1,0 +1,111 @@
+{
+    "segmentation_mask": {
+        "parent": "",
+        "hierarchy": "false",
+        "type": "full"
+    },
+    "training": {
+        "decay_type": "loss_plateau",
+        "lr_decay": 0.9,
+        "lr": 0.001,
+        "batch_size": 4,
+        "decay_wait": 10,
+        "optimizer": "adam",
+        "loss": "cross_entropy",
+        "model": "unet"
+    },
+    "logs": {
+        "best_epoch": 265,
+        "save_every": 5,
+        "best_loss": 0.10042009502649307,
+        "max_epochs": 100000,
+        "start_epoch": 911,
+        "load_from": "/home/hans/Haplochromis-Burtoni-Study/data/full/unet_0910_1_96057.pth"
+    },
+    "image": {
+        "augmentations": [
+            {
+                "name": "ColorJitter",
+                "args": {
+                    "contrast": 0.2,
+                    "hue": 0,
+                    "saturation": 0.1,
+                    "brightness": 0.2
+                }
+            },
+            {
+                "name": "Resize",
+                "args": {
+                    "size": 768
+                }
+            },
+            {
+                "name": "Resize",
+                "args": {
+                    "size": 512
+                }
+            },
+            {
+                "name": "Resize",
+                "args": {
+                    "size": 256
+                }
+            },
+            {
+                "name": "local/GaussianBlur",
+                "args": {
+                    "std": [1.1, 3]
+                },
+                "ranges": ["std"]
+            },
+            {
+                "name": "local/PoissonAdditiveNoise",
+                "args": {
+                    "peak": [0.1, 0.9],
+                    "percent": [0.1, 1] 
+                },
+                "ranges": ["peak", "percent"]
+            },
+            {
+                "name": "local/SaltandPepperAdditiveNoise",
+                "args": {
+                   "percent": [0.01, 0.7] 
+                },
+                "ranges": ["percent"]
+            },
+            {
+                "name": "Resize",
+                "args": {
+                    "size": 64
+                }
+            },
+            {
+                "name": "RandomVerticalFlip"
+            },
+            {
+                "name": "RandomHorizontalFlip"
+            },
+            {
+                "name": "RandomRotation",
+                "args": {
+                    "degrees": 180
+                }
+            },
+            {
+                "name": "functional/adjust_gamma",
+                "args": {
+                    "gamma": [0.4, 1.6]
+                },
+                "ranges": ["gamma"]
+            }
+        ],
+        "width": 1024,
+        "height": 1024,
+        "augmentation_flag": "true"
+    },
+    "dataset_folders": [
+        "/home/hans/Haplochromis-Burtoni-Study/Machine learning training set/Light-Dark/T0",
+        "/home/hans/Haplochromis-Burtoni-Study/Machine learning training set/Light-Dark/T1",
+        "/home/hans/Haplochromis-Burtoni-Study/Machine learning training set/photos 1.30.2019"
+    ]
+}
